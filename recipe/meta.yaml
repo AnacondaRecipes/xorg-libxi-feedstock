@@ -3,7 +3,6 @@
 {% set name = "xorg-" ~ xorg_name %}
 {% set version = "1.8.2" %}
 {% set sha256 = "d0e0555e53d6e2114eabfa44226ba162d2708501a25e18d99cfb35c094c6c104" %}
-{% set am_version = "1.16" %} # keep synchronized with build.sh
 
 package:
   name: {{ name|lower }}
@@ -15,6 +14,8 @@ source:
 
 build:
   number: 0
+  # xorg-libxdmcp, libxcb, libx11, libice aren't available on Windows because their dependencies clash with m2/msys2 and mingw64/ucrt64 toolchains.
+  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name|lower) }}
 
@@ -59,10 +60,12 @@ test:
 
 about:
   home: https://www.x.org/
+  dev_url: https://gitlab.freedesktop.org/xorg/lib/libxi
+  doc_url: https://gitlab.freedesktop.org/xorg/lib/libxi
   license: MIT
   license_family: MIT
   license_file: COPYING
-  summary: 'The X.org input library.'
+  summary: The X.org input library.
 
 extra:
   recipe-maintainers:
