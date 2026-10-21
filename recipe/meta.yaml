@@ -1,5 +1,5 @@
 {% set name = "xorg-libXi" %}
-{% set version = "1.8.3" %}
+{% set version = "1.8.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.x.org/releases/individual/lib/{{ name.split('-')[1] }}-{{ version }}.tar.xz
-  sha256: 7ad60056f01af4f786cfe93b3a7707447711626fc8da2637bec71a90409babe5
+  sha256: ddd6057b89a91903bc2f884d55c8467440906945e482c36547260dff28661afc
 
 build:
   number: 0
@@ -38,6 +38,7 @@ requirements:
 
 test:
   commands:
+    # C library: no pytest. Upstream ships no TESTS; make check in build.sh is a no-op.
     - test -f $PREFIX/lib/libXi.dylib  # [osx]
     - test -f $PREFIX/lib/libXi.so     # [linux]
 
